@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.min.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-    123
+    <div id="app">
+        <div id="calc_top">
+            {{formula}}
+        </div>
+        <div id="calc_body">
+            <div v-for="(item,idx) in operations" @click=""
+                :class="{'br':idx%4<3,'bt':idx>=4,'del':idx==3,'divide':item=='÷','multiply':item=='*'}">
+                {{item}}</div>
+        </div>
+    </div>
 </body>
+<script>
+    PetiteVue.createApp({
+        formula: '',
+        operations: ['C', '1', '1', '⨉', '1', '2', '3', '+', '4', '5', '6', '-', '7', '8', '9', '*', '.', '0', '=', '÷']
+    }).mount("#app")
+</script>
+
 </html>
