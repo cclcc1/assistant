@@ -4,9 +4,7 @@
     font-size: 24px;
     font-family: 'Yuanti SC', 'PingFangSC-Regular';
 }
-html {
-    touch-action: manipulation;
-}
+
 body {
     background: #F3F2F8;
 }
