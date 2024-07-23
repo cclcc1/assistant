@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="user-scalable=no" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Assistant</title>
     <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.min.js"></script>
     <link rel="stylesheet" href="index.css">
@@ -27,7 +27,9 @@
                         fill="#0878F0"></path>
                 </svg></span>
         </div>
-        <div>{{time}}</div>
+        <div id="calc_top">
+            {{input_number}}
+        </div>
         <div id="calc_body">
             <div v-for="(item,idx) in operations" @click="handleOperationClick" :data-id=item
                 :class="{'br':idx%3<2,'bt':idx>=3}">{{item}}</div>
