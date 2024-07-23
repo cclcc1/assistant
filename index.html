@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" x-data="alpine()">
         <div id="top_bar">
             <span><svg viewBox="0 0 1024 1024" width="30" height="30">
                     <path
@@ -27,34 +28,52 @@
                         fill="#0878F0"></path>
                 </svg></span>
         </div>
-        <div id="calc_top">
-            {{input_number}}
+        <div id="calc_top" x-text="input_number">
         </div>
-        <div>{{time}}</div>
         <div id="calc_body">
-            <div v-for="(item,idx) in operations" @click="handleOperationClick" :data-id=item
-                :class="{'br':idx%3<2,'bt':idx>=3}">{{item}}</div>
+            <template x-for="(item,idx) in operations">
+                <div @click="handleOperationClick" :data-id=item :class="{'br':idx%3<2,'bt':idx>=3}" x-text="item">
+                </div>
+            </template>
         </div>
     </div>
 </body>
 <script>
-    PetiteVue.createApp({
-        input_number: '',
-        time: '',
-        operations: ['', '', 'x', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'ok'],
-        handleOperationClick(e) {
-            this.time = new Date().getTime()
-            let operation = e.currentTarget.dataset.id
-            let { input_number } = this
-            if (!isNaN(Number(operation, 10))) {
-                this.input_number = input_number + operation
-            } else if (operation == '.' && input_number.length > 0 && !input_number.includes('.')) {
-                this.input_number = input_number + operation
-            } else if (operation == '确定') {
+    // PetiteVue.createApp({
+    //     input_number: '',
+    //     time: '',
+    //     operations: ['', '', 'x', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'ok'],
+    //     handleOperationClick(e) {
+    //         this.time = new Date().getTime()
+    //         let operation = e.currentTarget.dataset.id
+    //         let { input_number } = this
+    //         if (!isNaN(Number(operation, 10))) {
+    //             this.input_number = input_number + operation
+    //         } else if (operation == '.' && input_number.length > 0 && !input_number.includes('.')) {
+    //             this.input_number = input_number + operation
+    //         } else if (operation == '确定') {
 
+    //         }
+    //     }
+    // }).mount("#app")
+    function alpine() {
+        return {
+            input_number: '',
+            operations: ['', '', 'x', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'ok'],
+            handleOperationClick(e) {
+                this.time = new Date().getTime()
+                let operation = e.currentTarget.dataset.id
+                let { input_number } = this
+                if (!isNaN(Number(operation, 10))) {
+                    this.input_number = input_number + operation
+                } else if (operation == '.' && input_number.length > 0 && !input_number.includes('.')) {
+                    this.input_number = input_number + operation
+                } else if (operation == '确定') {
+
+                }
             }
         }
-    }).mount("#app")
+    }
 </script>
 
 </html>
