@@ -1,0 +1,11 @@
+{
+    "name": "Assistant",
+    "start_url": "/",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "type": "image/ico"
+        }
+    ]
+}

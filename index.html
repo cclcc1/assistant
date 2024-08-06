@@ -3,15 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Assistant</title>
-    <script src="https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js"></script>
+    <link rel="apple-touch-icon" href="favicon.ico">
     <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.min.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
     <div id="app">
+        1.0.1
         <div id="top_bar">
             <span><svg viewBox="0 0 1024 1024" width="30" height="30">
                     <path
@@ -28,21 +33,28 @@
                         fill="#0878F0"></path>
                 </svg></span>
         </div>
-        <div id="calc_top">
-            {{input_number}}
-        </div>
-        <div id="calc_body">
-            <div v-for="(item,idx) in operations" @click="handleOperationClick" :data-id=item
-                :class="{'br':idx%3<2,'bt':idx>=3}">{{item}}</div>
+        <div id="calc">
+            <div id="calc_top">
+                {{input_number}}
+            </div>
+            <div id="calc_body">
+                <div v-for="(item,idx) in operations" @click="handleOperationClick" :data-id=item
+                    :class="{'br':idx%3<2,'bt':idx>=3}">{{item}}</div>
+            </div>
         </div>
     </div>
 </body>
 <script>
-    if ('addEventListener' in document) {
-        document.addEventListener('DOMContentLoaded', function () {
-            FastClick.attach(document.body);
-        }, false);
-    }
+    window.addEventListener('load', e => {
+        if ('serviceWorker' in navigator) {
+            try {
+                navigator.serviceWorker.register('sw.js');
+                console.log('SW registered');
+            } catch (error) {
+                console.log('SW failed');
+            }
+        }
+    });
     PetiteVue.createApp({
         input_number: '',
         operations: ['', '', 'x', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'ok'],

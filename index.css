@@ -19,11 +19,17 @@ body {
     box-sizing: border-box;
 }
 
+#calc {
+    position: absolute;
+    bottom: 40px;
+    width: 100vw;
+}
+
 #calc_body {
     width: 300px;
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
-    margin: auto;
     border-radius: 13px;
     overflow: hidden;
     user-select: none;
